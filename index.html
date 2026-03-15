@@ -10,7 +10,7 @@
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
+font-family:Arial;
 height:100vh;
 display:flex;
 justify-content:center;
@@ -29,8 +29,6 @@ background:#ffd9ea;
 max-width:420px;
 padding:20px;
 }
-
-/* buttons */
 
 button{
 margin-top:20px;
@@ -89,11 +87,16 @@ border-radius:15px;
 box-shadow:0 8px 25px rgba(0,0,0,0.25);
 max-width:320px;
 margin-top:20px;
-
 max-height:70vh;
 overflow-y:auto;
-
 animation:fade 1s ease;
+}
+
+.message img{
+width:100%;
+border-radius:12px;
+margin-bottom:15px;
+object-fit:cover;
 }
 
 @keyframes fade{
@@ -111,12 +114,8 @@ animation:fall linear forwards;
 }
 
 @keyframes fall{
-0%{
-transform:translateY(-10vh) rotate(0deg);
-}
-100%{
-transform:translateY(110vh) rotate(720deg);
-}
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(720deg);}
 }
 
 #ageCounter{
@@ -133,9 +132,14 @@ color:#444;
 
 <div class="container">
 
+<!-- typing intro -->
+
 <div id="s1">
-<h2 style="color:white">It's Your Special Day Yeyey! ✨</h2>
-<button onclick="nextStep(2)">Next</button>
+
+<h2 id="typeText" style="color:white"></h2>
+
+<button id="startBtn" onclick="nextStep(2)" style="display:none">Next</button>
+
 </div>
 
 <div id="s2" style="display:none">
@@ -170,7 +174,11 @@ color:#444;
 </div>
 
 <div id="s9" style="display:none">
-<button onclick="showMessage()">Well, I Have a Message for You</button>
+<button onclick="messageIntro()">I have a message for you</button>
+</div>
+
+<div id="s10" style="display:none">
+<button onclick="showMessage()">Open the message ❤️</button>
 </div>
 
 <img src="banner.png" id="banner">
@@ -181,8 +189,7 @@ color:#444;
 
 <div class="message" id="msg">
 
-<img src="chiku.jpg"
-style="width:100%;max-height:200px;object-fit:cover;border-radius:10px;margin-bottom:15px;">
+<img src="chiku.jpg">
 
 <h3 style="color:#ff4da6;">To my sweet little cupcake ❤️</h3>
 
@@ -210,8 +217,35 @@ Enjoy your day and keep shining always ✨
 
 <script>
 
+/* typing effect */
+
+const message = "Hey Chiku... I made something special for you ❤️";
+
+let index = 0;
+
+function typeEffect(){
+
+if(index < message.length){
+
+document.getElementById("typeText").innerHTML += message.charAt(index);
+
+index++;
+
+setTimeout(typeEffect,60);
+
+}
+else{
+
+document.getElementById("startBtn").style.display="inline-block";
+
+}
+
+}
+
+window.onload = typeEffect;
+
 function nextStep(n){
-for(let i=1;i<=9;i++){
+for(let i=1;i<=10;i++){
 let s=document.getElementById("s"+i);
 if(s) s.style.display="none";
 }
@@ -232,8 +266,6 @@ function decorate(){
 document.getElementById("banner").style.display="block";
 nextStep(7);
 }
-
-/* balloons */
 
 function flyBalloons(){
 
@@ -268,6 +300,10 @@ document.getElementById("cake").style.display="block";
 nextStep(9);
 }
 
+function messageIntro(){
+nextStep(10);
+}
+
 function showMessage(){
 
 document.getElementById("msg").style.display="block";
@@ -277,8 +313,6 @@ calculateAge();
 launchConfetti();
 
 }
-
-/* confetti effect */
 
 function launchConfetti(){
 
@@ -305,8 +339,6 @@ conf.remove();
 
 }
 
-/* age timer */
-
 function calculateAge(){
 
 let birth=new Date("2007-03-18T00:00:00");
@@ -329,7 +361,6 @@ days-=Math.floor(months*30.44);
 hours=hours%24;
 
 document.getElementById("ageCounter").innerHTML=
-
 years+" years "+months+" months "+days+" days "+hours+" hours ago my princess was born ✨";
 
 }
