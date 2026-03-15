@@ -28,8 +28,9 @@ background:#ffd9ea;
 .container{
 max-width:420px;
 padding:20px;
-position:relative;
 }
+
+/* buttons */
 
 button{
 margin-top:20px;
@@ -42,42 +43,35 @@ font-size:16px;
 cursor:pointer;
 }
 
-.banner{
-display:none;
-font-size:32px;
-color:#ff0066;
-margin-top:20px;
+/* hearts */
+
+.heart{
+position:absolute;
+font-size:24px;
+opacity:0.2;
 }
 
-img{
+/* banner */
+
+#banner{
 display:none;
-width:220px;
-border-radius:20px;
+width:260px;
 margin-top:20px;
-box-shadow:0 0 15px rgba(0,0,0,0.2);
+animation:swing 3s infinite ease-in-out;
 }
 
-.cake{
-display:none;
-font-size:80px;
-margin-top:20px;
+@keyframes swing{
+0%{transform:rotate(-2deg);}
+50%{transform:rotate(2deg);}
+100%{transform:rotate(-2deg);}
 }
 
-.message{
-display:none;
-margin-top:20px;
-background:white;
-padding:15px;
-border-radius:15px;
-font-size:17px;
-line-height:1.6;
-color:#333;
-}
+/* balloons */
 
 .balloon{
 position:absolute;
 bottom:-100px;
-font-size:30px;
+font-size:28px;
 animation:float 6s linear infinite;
 }
 
@@ -86,10 +80,30 @@ animation:float 6s linear infinite;
 100%{transform:translateY(-110vh);}
 }
 
-.heart{
-position:absolute;
-font-size:25px;
-opacity:0.2;
+/* cake */
+
+#cake{
+display:none;
+width:220px;
+margin-top:20px;
+}
+
+/* message card */
+
+.message{
+display:none;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
+max-width:320px;
+margin-top:20px;
+animation:fade 1s ease;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 </style>
@@ -133,34 +147,36 @@ opacity:0.2;
 </div>
 
 <div id="s8" style="display:none">
-<button onclick="showCake()">Cut the Cake 🎂</button>
+<button onclick="showCake()">Let's Cut the Cake 🎂</button>
 </div>
 
 <div id="s9" style="display:none">
-<button onclick="showMessage()">I Have a Message</button>
+<button onclick="showMessage()">Well, I Have a Message for You</button>
 </div>
 
-<div class="banner" id="banner">
-🎉 HAPPY BIRTHDAY 🎉
-</div>
+<img src="banner.png" id="banner">
 
-<img id="photo" src="chiku.png">
-
-<div class="cake" id="cake">🎂</div>
+<img src="cake.png" id="cake">
 
 <div class="message" id="msg">
 
-<b> To my sweet little cupcake </b><br><br>
+<img src="chiku.png" style="width:100%;border-radius:10px;margin-bottom:15px;">
+
+<h3 style="color:#ff4da6;">To my sweet little cupcake ❤️</h3>
+
+<div style="color:#333;font-size:16px;line-height:1.6;">
 
 Today is a very special day because someone truly amazing was born.<br><br>
 
 I hope this birthday brings you lots of happiness,
 beautiful memories, and all the things that make you smile.<br><br>
 
-You deserve all the good things and love in life and I hope
+You deserve all the good things in life and I hope
 this year becomes one of the best chapters of your story.<br><br>
 
 Enjoy your day and keep shining always ✨
+
+</div>
 
 </div>
 
@@ -174,8 +190,8 @@ Enjoy your day and keep shining always ✨
 
 function nextStep(n){
 for(let i=1;i<=9;i++){
-let el=document.getElementById("s"+i);
-if(el) el.style.display="none";
+let s=document.getElementById("s"+i);
+if(s) s.style.display="none";
 }
 document.getElementById("s"+n).style.display="block";
 }
@@ -193,18 +209,17 @@ nextStep(6);
 
 function decorate(){
 document.getElementById("banner").style.display="block";
-document.getElementById("photo").style.display="block";
 nextStep(7);
 }
 
 function flyBalloons(){
 
-for(let i=0;i<20;i++){
-let balloon=document.createElement("div");
-balloon.className="balloon";
-balloon.innerHTML="🎈";
-balloon.style.left=Math.random()*100+"vw";
-document.body.appendChild(balloon);
+for(let i=0;i<15;i++){
+let b=document.createElement("div");
+b.className="balloon";
+b.innerHTML="🎈";
+b.style.left=Math.random()*100+"vw";
+document.body.appendChild(b);
 }
 
 nextStep(8);
@@ -220,13 +235,13 @@ document.getElementById("msg").style.display="block";
 }
 
 function createHearts(){
-for(let i=0;i<25;i++){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💗";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top=Math.random()*100+"vh";
-document.body.appendChild(heart);
+for(let i=0;i<20;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+h.style.left=Math.random()*100+"vw";
+h.style.top=Math.random()*100+"vh";
+document.body.appendChild(h);
 }
 }
 
