@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>A Special Surprise</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:black;
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+/* intro screen */
+
+#intro{
+margin-top:200px;
+}
+
+#intro h1{
+font-size:50px;
+color:#ff4da6;
+}
+
+#intro p{
+font-size:28px;
+}
+
+button{
+padding:15px 30px;
+font-size:20px;
+border:none;
+border-radius:10px;
+background:#ff4da6;
+color:white;
+cursor:pointer;
+}
+
+/* birthday section */
+
+#main{
+display:none;
+}
+
+h1{
+font-size:60px;
+margin-top:80px;
+color:#ff4da6;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{color:#ff4da6;}
+to{color:#ffff66;}
+}
+
+#countdown{
+font-size:26px;
+margin-top:20px;
+}
+
+#gift{
+font-size:100px;
+cursor:pointer;
+margin-top:40px;
+}
+
+#typing{
+font-size:28px;
+margin-top:30px;
+color:#ff66cc;
+}
+
+#photo{
+display:none;
+margin-top:30px;
+}
+
+#photo img{
+width:260px;
+border-radius:20px;
+box-shadow:0 0 25px pink;
+}
+
+.balloon{
+position:absolute;
+bottom:-120px;
+font-size:40px;
+animation:float 7s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-120vh);}
+}
+
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="intro">
+
+<h1>It's Your Special Day 🎉</h1>
+
+<p>Look what I made for you...</p>
+
+<button onclick="start()">Click Here</button>
+
+</div>
+
+<div id="main">
+
+<h1>A Special Day Is Coming 🎂</h1>
+
+<div id="countdown"></div>
+
+<div id="gift" onclick="openGift()">🎁</div>
+
+<div id="typing"></div>
+
+<div id="photo">
+<img src="chiku.png">
+</div>
+
+<audio id="music">
+<source src="sheky.mpeg" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+function start(){
+
+document.getElementById("intro").style.display="none";
+
+document.getElementById("main").style.display="block";
+
+}
+
+/* countdown */
+
+let birthday=new Date("March 18, 2026 00:00:00").getTime();
+
+setInterval(function(){
+
+let now=new Date().getTime();
+
+let distance=birthday-now;
+
+let days=Math.floor(distance/(1000*60*60*24));
+
+let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+
+let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+
+let seconds=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+days+" days "+hours+" hours "+minutes+" minutes "+seconds+" seconds";
+
+},1000);
+
+/* gift open */
+
+function openGift(){
+
+document.getElementById("music").play();
+
+document.getElementById("gift").innerHTML="🎂";
+
+typeMessage();
+
+}
+
+/* typing effect */
+
+let text="Someone very special is celebrating today...";
+
+let i=0;
+
+function typeMessage(){
+
+if(i<text.length){
+
+document.getElementById("typing").innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(typeMessage,70);
+
+}else{
+
+setTimeout(showPhoto,1500);
+
+}
+
+}
+
+/* show photo + animation */
+
+function showPhoto(){
+
+document.getElementById("photo").style.display="block";
+
+for(let i=0;i<40;i++){
+
+let balloon=document.createElement("div");
+
+balloon.className="balloon";
+
+balloon.innerHTML="🎈";
+
+balloon.style.left=Math.random()*100+"vw";
+
+balloon.style.animationDuration=(4+Math.random()*4)+"s";
+
+document.body.appendChild(balloon);
+
+}
+
+for(let i=0;i<40;i++){
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(10+Math.random()*20)+"px";
+
+document.body.appendChild(heart);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
