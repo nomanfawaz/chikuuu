@@ -4,21 +4,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise</title>
+<title>For My Chiku ❤️</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
 background:black;
-transition:1s;
 overflow:hidden;
+transition:1s;
 }
 
 .pink{
@@ -27,7 +27,7 @@ background:#ffd9ea;
 
 .container{
 width:90%;
-max-width:380px;
+max-width:360px;
 margin:auto;
 }
 
@@ -37,11 +37,46 @@ button{
 margin-top:20px;
 padding:12px 26px;
 border:none;
-border-radius:25px;
+border-radius:30px;
 background:#ff4da6;
 color:white;
 font-size:16px;
 cursor:pointer;
+}
+
+/* welcome screen */
+
+#welcomeScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ffd9ea;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:999;
+animation:fadeOut 4s forwards;
+animation-delay:3s;
+}
+
+.glow{
+font-size:40px;
+color:#ff4da6;
+text-shadow:0 0 10px #ff4da6,0 0 20px #ff4da6;
+}
+
+#welcomeScreen p{
+font-size:18px;
+}
+
+@keyframes fadeOut{
+to{
+opacity:0;
+visibility:hidden;
+}
 }
 
 /* banner */
@@ -49,7 +84,7 @@ cursor:pointer;
 #banner{
 display:none;
 width:260px;
-margin:20px auto;
+margin:15px auto;
 }
 
 /* cake */
@@ -62,11 +97,15 @@ margin:20px auto;
 
 /* photo */
 
-#photo{
+#photoPage{
 display:none;
-width:220px;
-border-radius:15px;
+}
+
+#photo{
+width:240px;
+border-radius:20px;
 margin:20px auto;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 /* popup */
@@ -79,26 +118,30 @@ transform:translate(-50%,-50%);
 background:white;
 padding:20px;
 border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 display:none;
-z-index:10;
+z-index:100;
+max-width:300px;
 }
 
-/* message */
+/* letter */
 
-.message{
+#letterPage{
 display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90%;
+max-width:340px;
+}
+
+.letter{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:15px;
-max-width:320px;
-margin:auto;
-animation:fade 1s ease;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+line-height:1.6;
 }
 
 /* balloons */
@@ -106,23 +149,20 @@ to{opacity:1;transform:translateY(0);}
 .balloon{
 position:absolute;
 font-size:28px;
-opacity:0.9;
 animation:floatUp linear forwards;
 }
 
 @keyframes floatUp{
-0%{transform:translateY(0);}
-100%{transform:translateY(-120vh);}
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
 }
 
 /* hearts */
 
 .heart{
 position:absolute;
-color:#ff4da6;
-font-size:18px;
-opacity:0.4;
-animation:floatUp 8s linear infinite;
+font-size:20px;
+animation:floatUp linear forwards;
 }
 
 /* confetti */
@@ -131,12 +171,12 @@ animation:floatUp 8s linear infinite;
 position:absolute;
 width:8px;
 height:8px;
-animation:fall linear forwards;
+animation:fall 4s linear infinite;
 }
 
 @keyframes fall{
-0%{transform:translateY(-10vh);}
-100%{transform:translateY(110vh);}
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
 }
 
 </style>
@@ -145,104 +185,139 @@ animation:fall linear forwards;
 
 <body>
 
+<div id="welcomeScreen">
+<h1 class="glow">Chiku ❤️</h1>
+<p>This little surprise is made just for you ✨</p>
+</div>
+
 <div class="container">
 
 <div id="s1">
-<h2 id="typeText" style="color:white"></h2>
-<button id="startBtn" onclick="nextStep(2)" style="display:none">Next</button>
+<h2 id="typing" style="color:white"></h2>
+<button id="startBtn" style="display:none" onclick="nextStep(2)">Next ❤️</button>
 </div>
 
 <div id="s2" style="display:none">
-<h2 style="color:white">I wanted to make something special for you</h2>
+<h2 style="color:white">I wanted to make something special for you ✨</h2>
 <button onclick="nextStep(3)">Next</button>
 </div>
 
 <div id="s3" style="display:none">
-<h2 style="color:white">Do you wanna see what I made?</h2>
+<h2 style="color:white">Do you wanna see what I made? 😊</h2>
 <button onclick="nextStep(4)">Yes!</button>
 </div>
 
 <div id="s4" style="display:none">
-<h2 style="color:white">Have a look at it Madam Ji</h2>
-<button onclick="lightsOn()">Lights On</button>
+<h2 style="color:white">Have a look at it Madam Ji 👀</h2>
+<button onclick="lightsOn()">Lights On 💡</button>
 </div>
 
 <div id="s5" style="display:none">
-<button onclick="playMusic()">Play Music</button>
+<button onclick="playSheky()">Play Music 🎶</button>
 </div>
 
 <div id="s6" style="display:none">
-<button onclick="decorate()">Decorate</button>
+<button onclick="decorate()">Decorate 🎉</button>
 </div>
 
 <div id="s7" style="display:none">
-<button onclick="flyBalloons()">Fly Balloons</button>
+<button onclick="flyBalloons()">Fly Balloons 🎈</button>
 </div>
 
 <div id="s8" style="display:none">
 <button onclick="showCake()">Let's Cut the Cake 🎂</button>
 </div>
 
-<div id="s9" style="display:none">
-<button onclick="showPhoto()">Wanna see cupcake? ❤️</button>
-</div>
-
 <img src="banner.png" id="banner">
 <img src="cake.png" id="cake">
-<img src="chiku.jpg" id="photo">
 
-<div class="popup" id="popup">
-<h3>I have a message for you ❤️</h3>
-<button onclick="openMessage()">Open</button>
+<div class="popup" id="popupSong">
+<h3>I have one more song for my cute little cupcake 🧁❤️</h3>
+<button onclick="showPhoto()">Open</button>
 </div>
 
-<div class="message" id="msg">
+<div id="photoPage">
 
-<h3 style="color:#ff4da6;">To my sweet little cupcake ❤️</h3>
+<img src="chiku.jpg" id="photo">
+
+<div class="popup" id="popupMsg">
+<h3>I have a message for you cupcake 💌</h3>
+<button onclick="showMessage()">Open</button>
+</div>
+
+</div>
+
+<div id="letterPage">
+
+<div class="letter">
+
+<h2>Dear Chiku 💖</h2>
 
 <p>
+
 Today is a very special day because someone truly amazing was born.<br><br>
+
 I hope this birthday brings you lots of happiness,
-beautiful memories, and all the things that make you smile.<br><br>
+beautiful memories, and all the things that make you smile. 🌸<br><br>
+
 You deserve all the good things in life and I hope
-this year becomes one of the best chapters of your story.<br><br>
-Enjoy your day and keep shining always ✨
+this year becomes one of the best chapters of your story. ✨<br><br>
+
+Enjoy your day and keep shining always 🌟
+
+</p>
+
+<p style="margin-top:20px;font-weight:bold;">
+— From Omii ❤️
 </p>
 
 </div>
 
-<audio id="song">
+</div>
+
+<audio id="sheky">
 <source src="sheky.mpeg" type="audio/mpeg">
+</audio>
+
+<audio id="pretty">
+<source src="pretty.mpeg" type="audio/mpeg">
 </audio>
 
 </div>
 
 <script>
 
-/* typing intro */
+/* typing effect */
 
-const message="Hey Chiku... I made something special for you ❤️";
-let index=0;
+const text="Hey Chiku... I made something special for you ❤️";
+let i=0;
 
-function typeEffect(){
-if(index<message.length){
-document.getElementById("typeText").innerHTML+=message.charAt(index);
-index++;
-setTimeout(typeEffect,60);
+function typeText(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeText,60);
 }else{
 document.getElementById("startBtn").style.display="inline-block";
 }
 }
 
-window.onload=typeEffect;
+window.onload=typeText;
+
+/* navigation */
 
 function nextStep(n){
-for(let i=1;i<=9;i++){
-let s=document.getElementById("s"+i);
+
+for(let x=1;x<=8;x++){
+let s=document.getElementById("s"+x);
 if(s) s.style.display="none";
 }
+
 document.getElementById("s"+n).style.display="block";
+
 }
+
+/* lights */
 
 function lightsOn(){
 document.body.classList.add("pink");
@@ -250,32 +325,37 @@ createHearts();
 nextStep(5);
 }
 
-function playMusic(){
-document.getElementById("song").play();
+/* music */
+
+function playSheky(){
+document.getElementById("sheky").play();
 nextStep(6);
 }
+
+/* banner */
 
 function decorate(){
 document.getElementById("banner").style.display="block";
 nextStep(7);
 }
 
+/* balloons */
+
 function flyBalloons(){
 
 setInterval(()=>{
 
-let balloon=document.createElement("div");
-balloon.className="balloon";
-balloon.innerHTML="🎈";
-balloon.style.left=Math.random()*100+"vw";
-balloon.style.bottom="-40px";
-balloon.style.animationDuration=(5+Math.random()*3)+"s";
+let b=document.createElement("div");
+b.className="balloon";
+b.innerHTML="🎈";
 
-document.body.appendChild(balloon);
+b.style.left=Math.random()*100+"vw";
+b.style.bottom="-30px";
+b.style.animationDuration=(5+Math.random()*3)+"s";
 
-setTimeout(()=>{
-balloon.remove();
-},8000);
+document.body.appendChild(b);
+
+setTimeout(()=>{b.remove()},8000);
 
 },700);
 
@@ -283,66 +363,104 @@ nextStep(8);
 
 }
 
+/* cake */
+
 function showCake(){
+
 document.getElementById("cake").style.display="block";
-nextStep(9);
-}
-
-function showPhoto(){
-
-document.getElementById("photo").style.display="block";
 
 setTimeout(()=>{
-document.getElementById("popup").style.display="block";
+document.getElementById("popupSong").style.display="block";
 },2000);
 
 }
 
-function openMessage(){
+/* photo page */
 
-document.getElementById("popup").style.display="none";
-document.getElementById("msg").style.display="block";
+function showPhoto(){
 
-launchConfetti();
+document.getElementById("popupSong").style.display="none";
 
-}
+document.getElementById("photoPage").style.display="block";
 
-function launchConfetti(){
+document.getElementById("pretty").play();
 
-for(let i=0;i<100;i++){
-
-let conf=document.createElement("div");
-conf.className="confetti";
-conf.style.left=Math.random()*100+"vw";
-conf.style.backgroundColor=
-["#ff4da6","#ffd700","#00ccff","#66ff66","#ff9966"][Math.floor(Math.random()*5)];
-
-conf.style.animationDuration=(3+Math.random()*3)+"s";
-
-document.body.appendChild(conf);
-
-setTimeout(()=>{conf.remove()},6000);
+setTimeout(()=>{
+document.getElementById("popupMsg").style.display="block";
+},4000);
 
 }
 
+/* message */
+
+function showMessage(){
+
+document.getElementById("popupMsg").style.display="none";
+
+document.getElementById("photoPage").style.display="none";
+
+document.getElementById("letterPage").style.display="block";
+
+createHearts();
+createConfetti();
+
 }
+
+/* hearts */
 
 function createHearts(){
 
-for(let i=0;i<20;i++){
+for(let x=0;x<25;x++){
+
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+
+h.style.left=Math.random()*100+"vw";
+h.style.bottom="-20px";
+h.style.animationDuration=(6+Math.random()*4)+"s";
+
+document.body.appendChild(h);
+
+}
+
+}
+
+/* confetti */
+
+function createConfetti(){
+
+setInterval(()=>{
+
+let c=document.createElement("div");
+c.className="confetti";
+
+c.style.left=Math.random()*100+"vw";
+c.style.background="hsl("+Math.random()*360+",70%,60%)";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{c.remove()},4000);
+
+},150);
+
+}
+
+/* tap magic */
+
+document.addEventListener("click",function(){
 
 let heart=document.createElement("div");
 heart.className="heart";
-heart.innerHTML="❤";
+heart.innerHTML="💖";
 
-heart.style.left=Math.random()*100+"vw";
-heart.style.bottom="-20px";
+heart.style.left=(Math.random()*100)+"vw";
+heart.style.bottom="-10px";
+heart.style.animationDuration="4s";
 
 document.body.appendChild(heart);
 
-}
-
-}
+});
 
 </script>
 
