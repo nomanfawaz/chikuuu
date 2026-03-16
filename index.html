@@ -32,6 +32,8 @@ width:90%;
 max-width:360px;
 }
 
+/* buttons */
+
 button{
 margin-top:18px;
 padding:12px 26px;
@@ -41,6 +43,11 @@ background:#ff4da6;
 color:white;
 font-size:16px;
 cursor:pointer;
+transition:transform .15s;
+}
+
+button:active{
+transform:scale(.92);
 }
 
 /* banner */
@@ -97,7 +104,7 @@ animation:cakePop .6s ease;
 .balloon{
 position:fixed;
 font-size:32px;
-bottom:-50px;
+bottom:-60px;
 animation:balloonUp 7s linear forwards;
 z-index:999;
 }
@@ -171,7 +178,7 @@ color:white;
 
 <div id="s1">
 <h2 id="typing" style="color:white"></h2>
-<button id="startBtn" style="display:none" onclick="nextStep(2)">Next ❤️</button>
+<button id="startBtn" onclick="nextStep(2)" style="display:none">Next ❤️</button>
 </div>
 
 <div id="s2" style="display:none">
@@ -289,22 +296,15 @@ document.getElementById("s"+n).style.display="block";
 /* burst hearts */
 
 function burstHearts(){
-
 for(let i=0;i<25;i++){
-
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💗";
-
 h.style.left=Math.random()*100+"vw";
 h.style.top=Math.random()*100+"vh";
-
 document.body.appendChild(h);
-
 setTimeout(()=>h.remove(),3000);
-
 }
-
 }
 
 /* lights */
@@ -336,12 +336,10 @@ banner.classList.add("bannerSwing");
 },800);
 
 burstHearts();
-
 nextStep(7);
-
 }
 
-/* balloons from both sides */
+/* balloons */
 
 function flyBalloons(){
 
@@ -354,8 +352,6 @@ setTimeout(()=>{
 let balloon=document.createElement("div");
 balloon.className="balloon";
 balloon.innerHTML="🎈";
-
-/* alternate left and right */
 
 if(i%2===0){
 balloon.style.left="5vw";
@@ -391,6 +387,8 @@ document.getElementById("popupPhotoIntro").style.display="block";
 
 }
 
+/* photo */
+
 function showPhoto(){
 
 document.getElementById("popupPhotoIntro").style.display="none";
@@ -403,23 +401,21 @@ burstHearts();
 
 }
 
-function showMessagePopup(){
+/* message */
 
+function showMessagePopup(){
 document.getElementById("photoPopup").style.display="none";
 document.getElementById("popupMsg").style.display="block";
-
 }
 
 function showMessage(){
 
 document.getElementById("popupMsg").style.display="none";
-
 document.getElementById("banner").style.display="none";
 
 document.getElementById("letterPage").style.display="block";
 
 burstHearts();
-
 }
 
 /* hearts on tap */
@@ -446,8 +442,12 @@ setTimeout(()=>h.remove(),3000);
 document.addEventListener("click",e=>spawnHearts(e.clientX,e.clientY));
 
 document.addEventListener("touchstart",e=>{
+
+if(e.target.tagName==="BUTTON") return;
+
 let t=e.touches[0];
 spawnHearts(t.clientX,t.clientY);
+
 });
 
 </script>
