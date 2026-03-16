@@ -5,7 +5,6 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>For My Chiku ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -60,10 +59,12 @@ transform-origin:top center;
 z-index:5;
 }
 
-/* banner drop */
-
 .bannerDrop{
 animation:dropBanner .8s ease;
+}
+
+.bannerSwing{
+animation:swingBanner 3s ease-in-out infinite alternate;
 }
 
 @keyframes dropBanner{
@@ -72,39 +73,16 @@ animation:dropBanner .8s ease;
 100%{transform:translate(-50%,0);opacity:1;}
 }
 
-/* banner swing */
-
-.bannerSwing{
-animation:swingBanner 3s ease-in-out infinite alternate;
-}
-
 @keyframes swingBanner{
 0%{rotate:-4deg;}
 100%{rotate:4deg;}
-}
-
-/* blinking lights */
-
-.lights::before{
-content:"💡 💡 💡 💡 💡 💡 💡 💡";
-position:absolute;
-top:-20px;
-left:0;
-width:100%;
-font-size:20px;
-animation:blink 1s infinite alternate;
-}
-
-@keyframes blink{
-0%{opacity:.3;}
-100%{opacity:1;}
 }
 
 /* cake */
 
 #cake{
 display:none;
-width:230px;
+width:220px;
 margin-top:40px;
 }
 
@@ -128,8 +106,7 @@ animation:balloonUp linear forwards;
 
 @keyframes balloonUp{
 0%{transform:translateY(0)}
-50%{transform:translateY(-50vh) translateX(-15px)}
-100%{transform:translateY(-110vh) translateX(15px)}
+100%{transform:translateY(-120vh)}
 }
 
 /* hearts */
@@ -364,8 +341,6 @@ document.getElementById("sheky").play();
 nextStep(6);
 }
 
-/* decorate */
-
 function decorate(){
 
 let banner=document.getElementById("banner");
@@ -375,7 +350,6 @@ banner.classList.add("bannerDrop");
 
 setTimeout(()=>{
 banner.classList.add("bannerSwing");
-banner.classList.add("lights");
 },800);
 
 nextStep(7);
@@ -386,22 +360,22 @@ nextStep(7);
 
 function flyBalloons(){
 
+nextStep(8);
+
 setInterval(()=>{
 
-let b=document.createElement("div");
-b.className="balloon";
-b.innerHTML="🎈";
+let balloon=document.createElement("div");
+balloon.className="balloon";
+balloon.innerHTML="🎈";
 
-b.style.left=Math.random()*100+"vw";
-b.style.bottom="-30px";
+balloon.style.left=Math.random()*100+"vw";
+balloon.style.bottom="-40px";
 
-document.body.appendChild(b);
+document.body.appendChild(balloon);
 
-setTimeout(()=>b.remove(),8000);
+setTimeout(()=>balloon.remove(),8000);
 
-},700);
-
-nextStep(8);
+},600);
 
 }
 
@@ -450,6 +424,10 @@ function showMessage(){
 
 document.getElementById("popupMsg").style.display="none";
 
+/* hide banner */
+
+document.getElementById("banner").style.display="none";
+
 let letter=document.getElementById("letterPage");
 
 letter.style.display="block";
@@ -460,7 +438,7 @@ startFloatingHearts();
 
 }
 
-/* floating hearts forever */
+/* floating hearts */
 
 function startFloatingHearts(){
 
@@ -501,18 +479,18 @@ setTimeout(()=>c.remove(),4000);
 
 }
 
-/* tap hearts */
+/* hearts on tap */
 
 function spawnHearts(x,y){
 
-for(let i=0;i<6;i++){
+for(let i=0;i<5;i++){
 
 let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="💗";
 
-heart.style.left=(x + Math.random()*30 -15)+"px";
-heart.style.top=(y + Math.random()*30 -15)+"px";
+heart.style.left=(x + Math.random()*40 -20)+"px";
+heart.style.top=(y + Math.random()*40 -20)+"px";
 
 document.body.appendChild(heart);
 
