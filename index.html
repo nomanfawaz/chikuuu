@@ -54,8 +54,20 @@ margin:15px auto;
 
 #cake{
 display:none;
-width:180px;
-margin:20px auto;
+width:220px;
+margin:15px auto;
+}
+
+/* cake pop animation */
+
+.pop{
+animation:cakePop 0.6s ease;
+}
+
+@keyframes cakePop{
+0%{transform:scale(0.2)}
+60%{transform:scale(1.2)}
+100%{transform:scale(1)}
 }
 
 /* popup */
@@ -82,7 +94,7 @@ border-radius:15px;
 margin-top:10px;
 }
 
-/* letter */
+/* letter page */
 
 #letterPage{
 display:none;
@@ -96,10 +108,19 @@ max-width:340px;
 
 .letter{
 background:white;
-padding:25px;
+padding:18px;
 border-radius:15px;
 box-shadow:0 10px 30px rgba(0,0,0,0.25);
-line-height:1.6;
+line-height:1.45;
+font-size:15px;
+max-height:80vh;
+overflow-y:auto;
+}
+
+.letter h2{
+margin-top:0;
+margin-bottom:10px;
+font-size:22px;
 }
 
 /* balloons */
@@ -238,7 +259,7 @@ Keep being the wonderful person you are.
 
 </p>
 
-<p style="margin-top:20px;font-weight:bold;">
+<p style="margin-top:15px;font-weight:bold;">
 — From Omii ❤️
 </p>
 
@@ -321,7 +342,10 @@ nextStep(8);
 
 function showCake(){
 
-document.getElementById("cake").style.display="block";
+let cake=document.getElementById("cake");
+
+cake.style.display="block";
+cake.classList.add("pop");
 
 setTimeout(()=>{
 document.getElementById("popupPhotoIntro").style.display="block";
