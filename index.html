@@ -16,8 +16,8 @@ margin:0;
 font-family:'Poppins',sans-serif;
 background:black;
 text-align:center;
-overflow:hidden;
 height:100vh;
+overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -30,7 +30,6 @@ background:#ffd9ea;
 .container{
 width:90%;
 max-width:360px;
-margin:auto;
 }
 
 /* buttons */
@@ -64,18 +63,17 @@ animation:dropBanner .8s ease;
 }
 
 .bannerSwing{
-animation:swingBanner 3s ease-in-out infinite alternate;
+animation:swingBanner 3s infinite alternate ease-in-out;
 }
 
 @keyframes dropBanner{
-0%{transform:translate(-50%,-200px);opacity:0;}
-70%{transform:translate(-50%,10px);}
-100%{transform:translate(-50%,0);opacity:1;}
+0%{transform:translate(-50%,-200px);opacity:0}
+100%{transform:translate(-50%,0);opacity:1}
 }
 
 @keyframes swingBanner{
-0%{rotate:-4deg;}
-100%{rotate:4deg;}
+0%{rotate:-4deg}
+100%{rotate:4deg}
 }
 
 /* cake */
@@ -92,15 +90,15 @@ animation:cakePop .6s ease;
 
 @keyframes cakePop{
 0%{transform:scale(.2)}
-60%{transform:scale(1.2)}
+70%{transform:scale(1.2)}
 100%{transform:scale(1)}
 }
 
 /* balloons */
 
 .balloon{
-position:absolute;
-font-size:28px;
+position:fixed;
+font-size:30px;
 animation:balloonUp linear forwards;
 }
 
@@ -112,14 +110,14 @@ animation:balloonUp linear forwards;
 /* hearts */
 
 .heart{
-position:absolute;
+position:fixed;
 font-size:20px;
-animation:heartUp linear forwards;
+animation:heartFloat 3s forwards;
 }
 
-@keyframes heartUp{
-0%{transform:translateY(0)}
-100%{transform:translateY(-120vh)}
+@keyframes heartFloat{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-120px);opacity:0}
 }
 
 /* popup */
@@ -132,17 +130,16 @@ transform:translate(-50%,-50%);
 background:linear-gradient(135deg,#7b6cff,#a88cff);
 padding:22px;
 border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,.35);
 display:none;
-z-index:10;
-max-width:300px;
 color:white;
+max-width:300px;
+z-index:10;
 }
 
 #photoPopup img{
 width:220px;
 border-radius:12px;
-margin-top:12px;
+margin-top:10px;
 }
 
 /* message */
@@ -161,35 +158,7 @@ max-width:340px;
 background:linear-gradient(135deg,#7b6cff,#a88cff);
 padding:24px;
 border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,.35);
-line-height:1.6;
-font-size:15px;
-max-height:80vh;
-overflow:auto;
 color:white;
-}
-
-.glow{
-animation:glowPink 2s infinite alternate;
-}
-
-@keyframes glowPink{
-0%{box-shadow:0 0 10px #ff9de0;}
-100%{box-shadow:0 0 40px #ff6ec7;}
-}
-
-/* confetti */
-
-.confetti{
-position:absolute;
-width:8px;
-height:8px;
-animation:fall 4s linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(-10vh)}
-100%{transform:translateY(110vh)}
 }
 
 </style>
@@ -258,7 +227,6 @@ animation:fall 4s linear infinite;
 </div>
 
 <div id="letterPage">
-
 <div class="letter">
 
 <h2>💖 Dear Chiku 💖</h2>
@@ -269,19 +237,11 @@ Out of all the days in the year, this one is special because it's the day you we
 
 <br><br>
 
-The world became brighter that day and honestly anyone who gets to know you is lucky.
+The world became brighter that day.
 
 <br><br>
 
-Your smile, your kindness, and the way you care about people makes you truly special.
-
-<br><br>
-
-I hope this birthday fills your life with happiness, beautiful memories and dreams slowly coming true 💫
-
-<br><br>
-
-You deserve every good thing this world has to offer.
+Your smile and kindness make you truly special.
 
 <br><br>
 
@@ -290,12 +250,9 @@ Keep smiling always 💗
 
 </p>
 
-<p style="margin-top:15px;font-weight:bold;">
-💗 From Omii 💗
-</p>
+<p><b>💗 From Omii 💗</b></p>
 
 </div>
-
 </div>
 
 <audio id="sheky"><source src="sheky.mpeg"></audio> <audio id="pretty"><source src="pretty.mpeg"></audio>
@@ -331,15 +288,43 @@ if(s) s.style.display="none";
 document.getElementById("s"+n).style.display="block";
 }
 
+/* HEART BURST */
+
+function burstHearts(){
+
+for(let i=0;i<25;i++){
+
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+
+h.style.left=Math.random()*100+"vw";
+h.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),3000);
+
+}
+
+}
+
+/* lights */
+
 function lightsOn(){
 document.body.classList.add("pink");
+burstHearts();
 nextStep(5);
 }
+
+/* music */
 
 function playSheky(){
 document.getElementById("sheky").play();
 nextStep(6);
 }
+
+/* decorate */
 
 function decorate(){
 
@@ -351,6 +336,8 @@ banner.classList.add("bannerDrop");
 setTimeout(()=>{
 banner.classList.add("bannerSwing");
 },800);
+
+burstHearts();
 
 nextStep(7);
 
@@ -369,13 +356,13 @@ balloon.className="balloon";
 balloon.innerHTML="🎈";
 
 balloon.style.left=Math.random()*100+"vw";
-balloon.style.bottom="-40px";
+balloon.style.bottom="-20px";
 
 document.body.appendChild(balloon);
 
 setTimeout(()=>balloon.remove(),8000);
 
-},600);
+},500);
 
 }
 
@@ -386,9 +373,10 @@ function showCake(){
 document.getElementById("s8").style.display="none";
 
 let cake=document.getElementById("cake");
-
 cake.style.display="block";
 cake.classList.add("pop");
+
+burstHearts();
 
 setTimeout(()=>{
 document.getElementById("popupPhotoIntro").style.display="block";
@@ -403,15 +391,12 @@ function showPhoto(){
 document.getElementById("popupPhotoIntro").style.display="none";
 document.getElementById("photoPopup").style.display="block";
 
-let sheky=document.getElementById("sheky");
-sheky.pause();
-sheky.currentTime=0;
-
+document.getElementById("sheky").pause();
 document.getElementById("pretty").play();
 
-}
+burstHearts();
 
-/* message */
+}
 
 function showMessagePopup(){
 
@@ -428,54 +413,9 @@ document.getElementById("popupMsg").style.display="none";
 
 document.getElementById("banner").style.display="none";
 
-let letter=document.getElementById("letterPage");
+document.getElementById("letterPage").style.display="block";
 
-letter.style.display="block";
-letter.classList.add("glow");
-
-createConfetti();
-startFloatingHearts();
-
-}
-
-/* floating hearts */
-
-function startFloatingHearts(){
-
-setInterval(()=>{
-
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💗";
-
-h.style.left=Math.random()*100+"vw";
-h.style.bottom="-20px";
-
-document.body.appendChild(h);
-
-setTimeout(()=>h.remove(),8000);
-
-},800);
-
-}
-
-/* confetti */
-
-function createConfetti(){
-
-setInterval(()=>{
-
-let c=document.createElement("div");
-c.className="confetti";
-
-c.style.left=Math.random()*100+"vw";
-c.style.background="hsl("+Math.random()*360+",70%,60%)";
-
-document.body.appendChild(c);
-
-setTimeout(()=>c.remove(),4000);
-
-},150);
+burstHearts();
 
 }
 
@@ -485,16 +425,16 @@ function spawnHearts(x,y){
 
 for(let i=0;i<5;i++){
 
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💗";
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
 
-heart.style.left=(x + Math.random()*40 -20)+"px";
-heart.style.top=(y + Math.random()*40 -20)+"px";
+h.style.left=x+"px";
+h.style.top=y+"px";
 
-document.body.appendChild(heart);
+document.body.appendChild(h);
 
-setTimeout(()=>heart.remove(),3000);
+setTimeout(()=>h.remove(),3000);
 
 }
 
