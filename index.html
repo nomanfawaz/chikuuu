@@ -5,6 +5,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For My Chiku ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -49,8 +50,10 @@ cursor:pointer;
 
 #banner{
 display:none;
-width:260px;
-margin:15px auto;
+width:330px;
+margin-top:-15px;
+margin-bottom:10px;
+transform-origin:top center;
 }
 
 .bannerDrop{
@@ -58,25 +61,26 @@ animation:dropBanner .8s ease;
 }
 
 @keyframes dropBanner{
-0%{
-transform:translateY(-200px);
-opacity:0;
+0%{transform:translateY(-200px);opacity:0;}
+70%{transform:translateY(20px);}
+100%{transform:translateY(0);opacity:1;}
 }
-70%{
-transform:translateY(20px);
+
+.bannerSwing{
+animation:swingBanner 3s ease-in-out infinite alternate;
 }
-100%{
-transform:translateY(0);
-opacity:1;
-}
+
+@keyframes swingBanner{
+0%{transform:rotate(-4deg);}
+100%{transform:rotate(4deg);}
 }
 
 /* cake */
 
 #cake{
 display:none;
-width:250px;
-margin:15px auto;
+width:260px;
+margin-top:20px;
 }
 
 .pop{
@@ -169,6 +173,19 @@ margin-bottom:10px;
 font-size:22px;
 }
 
+/* glow */
+
+.glow{
+animation:glowPink 2s infinite alternate;
+}
+
+@keyframes glowPink{
+0%{box-shadow:0 0 10px #ff9de0;}
+100%{box-shadow:0 0 40px #ff6ec7;}
+}
+
+/* confetti */
+
 .confetti{
 position:absolute;
 width:8px;
@@ -234,23 +251,15 @@ animation:fall 4s linear infinite;
 </div>
 
 <div class="popup" id="photoPopup">
-
 <h3>Look who's special today 💖</h3>
-
 <img src="chiku.jpg">
-
 <p>My little cupcake ✨</p>
-
 <button onclick="showMessagePopup()">Next</button>
-
 </div>
 
 <div class="popup" id="popupMsg">
-
 <h3>I have a message for you 💌</h3>
-
 <button onclick="showMessage()">Open</button>
-
 </div>
 
 <div id="letterPage">
@@ -347,7 +356,12 @@ let banner=document.getElementById("banner");
 banner.style.display="block";
 banner.classList.add("bannerDrop");
 
+setTimeout(()=>{
+banner.classList.add("bannerSwing");
+},800);
+
 nextStep(7);
+
 }
 
 function flyBalloons(){
@@ -373,6 +387,8 @@ nextStep(8);
 }
 
 function showCake(){
+
+document.getElementById("s8").style.display="none";
 
 let cake=document.getElementById("cake");
 
@@ -413,16 +429,41 @@ function showMessage(){
 
 document.getElementById("popupMsg").style.display="none";
 
-document.getElementById("letterPage").style.display="block";
+let letter=document.getElementById("letterPage");
 
-createHearts();
+letter.style.display="block";
+letter.classList.add("glow");
+
 createConfetti();
+startFloatingHearts();
+
+}
+
+/* floating hearts forever */
+
+function startFloatingHearts(){
+
+setInterval(()=>{
+
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+
+h.style.left=Math.random()*100+"vw";
+h.style.bottom="-20px";
+h.style.animationDuration=(6+Math.random()*4)+"s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{h.remove()},8000);
+
+},800);
 
 }
 
 function createHearts(){
 
-for(let x=0;x<20;x++){
+for(let x=0;x<15;x++){
 
 let h=document.createElement("div");
 h.className="heart";
@@ -456,7 +497,7 @@ setTimeout(()=>{c.remove()},4000);
 
 }
 
-/* hearts on every tap */
+/* hearts on tap */
 
 document.addEventListener("click",function(e){
 
@@ -468,7 +509,6 @@ heart.innerHTML="💗";
 
 heart.style.left=e.clientX+"px";
 heart.style.top=e.clientY+"px";
-heart.style.animationDuration="3s";
 
 document.body.appendChild(heart);
 
