@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 
@@ -29,8 +28,6 @@ transition:background 2s;
 background:#ffd9ea;
 }
 
-/* final glow */
-
 .finalGlow{
 background:#ffd9ea;
 animation:glow 3s infinite alternate;
@@ -45,8 +42,6 @@ animation:glow 3s infinite alternate;
 width:90%;
 max-width:360px;
 }
-
-/* buttons */
 
 button{
 margin-top:16px;
@@ -63,8 +58,6 @@ transition:transform .15s;
 button:active{
 transform:scale(.92);
 }
-
-/* banner */
 
 #banner{
 display:none;
@@ -95,8 +88,6 @@ animation:swingBanner 3s infinite alternate ease-in-out;
 100%{rotate:4deg}
 }
 
-/* cake */
-
 #cake{
 display:none;
 width:220px;
@@ -113,27 +104,25 @@ animation:cakePop .6s ease;
 100%{transform:scale(1)}
 }
 
-/* balloons */
-
 .balloon{
 position:fixed;
 font-size:32px;
-bottom:-60px;
+bottom:-80px;
 animation:balloonUp 10s linear forwards, sway 3s ease-in-out infinite alternate;
 z-index:999;
+pointer-events:none;
+will-change: transform;
 }
 
 @keyframes balloonUp{
 0%{transform:translateY(0)}
-100%{transform:translateY(-130vh)}
+100%{transform:translateY(-150vh)}
 }
 
 @keyframes sway{
 0%{margin-left:-10px;}
 100%{margin-left:10px;}
 }
-
-/* floating hearts */
 
 .floatHeart{
 position:fixed;
@@ -147,8 +136,6 @@ animation:heartUp 9s linear forwards;
 100%{transform:translateY(-130vh)}
 }
 
-/* tap hearts */
-
 .heart{
 position:fixed;
 font-size:20px;
@@ -159,8 +146,6 @@ animation:heartFloat 3s forwards;
 0%{transform:translateY(0);opacity:1}
 100%{transform:translateY(-120px);opacity:0}
 }
-
-/* confetti */
 
 .confetti{
 position:fixed;
@@ -174,7 +159,19 @@ animation:fall 4s linear forwards;
 100%{transform:translateY(110vh)}
 }
 
-/* popup */
+/* 🎆 FIREWORK */
+.firework{
+position:fixed;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(1);opacity:1;}
+100%{transform:scale(12);opacity:0;}
+}
 
 .popup{
 position:fixed;
@@ -195,8 +192,6 @@ width:220px;
 border-radius:12px;
 margin-top:10px;
 }
-
-/* message page */
 
 #letterPage{
 display:none;
@@ -222,6 +217,12 @@ overflow:auto;
 .handwriting{
 font-family:'Pacifico',cursive;
 font-size:22px;
+}
+
+.goldText{
+color: gold;
+font-weight: bold;
+text-shadow: 0 0 8px rgba(255,215,0,0.7);
 }
 
 </style>
@@ -295,42 +296,34 @@ font-size:22px;
 <h3>💖 Dear Chiku 💖</h3>
 
 <p>
-
 Today is a very special day because someone truly amazing was born. 🎂✨
-
 <br><br>
-
 I hope this birthday brings you lots of happiness,
 beautiful memories and all the things that make you smile.
-
 <br><br>
-
 You deserve all the good things in life and I hope
 this year becomes one of the best chapters of your story.
-
 <br><br>
-
 May your dreams slowly turn into reality and every step
 you take bring you closer to the beautiful future you deserve.
-
 <br><br>
-
 Keep smiling, keep shining and never stop being
 the wonderful person you are.
-
 <br><br>
-
 Happy Birthday Chiku 🎉
 I hope today becomes one of your happiest days 💗
-
 </p>
 
-<p style="margin-top:8px;font-weight:bold;">💗 From Omii 💗</p>
+<p style="margin-top:8px;" class="goldText">
+💗 From Omii 💗 <br>
+Forever yours, with love and endless smiles ✨
+</p>
 
 </div>
 </div>
 
-<audio id="sheky"><source src="sheky.mpeg"></audio> <audio id="pretty"><source src="pretty.mpeg"></audio>
+<audio id="sheky"><source src="sheky.mpeg"></audio>
+<audio id="pretty"><source src="pretty.mpeg"></audio>
 
 </div>
 
@@ -396,6 +389,21 @@ setTimeout(()=>h.remove(),9000);
 },1800);
 }
 
+/* 🎆 FIREWORK FUNCTION */
+function launchFireworks(){
+for(let i=0;i<25;i++){
+setTimeout(()=>{
+let f=document.createElement("div");
+f.className="firework";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*60+"vh";
+f.style.background="hsl("+Math.random()*360+",100%,60%)";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+},i*150);
+}
+}
+
 function lightsOn(){
 document.body.classList.add("pink");
 burstHearts();
@@ -408,9 +416,7 @@ nextStep(6);
 }
 
 function decorate(){
-
 let banner=document.getElementById("banner");
-
 banner.style.display="block";
 banner.classList.add("bannerDrop");
 
@@ -420,27 +426,19 @@ banner.classList.add("bannerSwing");
 
 burstHearts();
 nextStep(7);
-
 }
 
 function flyBalloons(){
-
 nextStep(8);
 
 balloonInterval=setInterval(()=>{
-
 let balloon=document.createElement("div");
 balloon.className="balloon";
 balloon.innerHTML="🎈";
-
-balloon.style.left=Math.random()*100+"vw";
-
+balloon.style.left = Math.random() * window.innerWidth + "px";
 document.body.appendChild(balloon);
-
 setTimeout(()=>balloon.remove(),10000);
-
 },800);
-
 }
 
 function showCake(){
@@ -453,18 +451,17 @@ cake.classList.add("pop");
 
 burstHearts();
 
+/* 🎆 FIREWORKS TRIGGER */
+launchFireworks();
+
 setTimeout(()=>{
-
 clearInterval(balloonInterval);
-
 document.getElementById("popupPhotoIntro").style.display="block";
-
 },9000);
 
 }
 
 function showPhoto(){
-
 document.getElementById("popupPhotoIntro").style.display="none";
 document.getElementById("photoPopup").style.display="block";
 
@@ -472,7 +469,6 @@ document.getElementById("sheky").pause();
 document.getElementById("pretty").play();
 
 burstHearts();
-
 }
 
 function showMessagePopup(){
@@ -496,22 +492,15 @@ floatHearts();
 }
 
 function spawnHearts(x,y){
-
 for(let i=0;i<5;i++){
-
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💗";
-
 h.style.left=x+"px";
 h.style.top=y+"px";
-
 document.body.appendChild(h);
-
 setTimeout(()=>h.remove(),3000);
-
 }
-
 }
 
 document.addEventListener("click",e=>{
