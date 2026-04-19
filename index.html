@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My dear friend ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:sans-serif;
+background:black;
+text-align:center;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.5s;
+color:white;
+}
+
+.pink{background:#ffd9ea;color:black;}
+
+.container{max-width:350px;}
+
+button{
+padding:10px 20px;
+margin-top:20px;
+border:none;
+border-radius:20px;
+background:#ff4da6;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+img{
+max-width:220px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.balloon{
+position:fixed;
+bottom:-100px;
+font-size:30px;
+animation:up 6s linear forwards;
+}
+
+@keyframes up{
+0%{transform:translateY(0);}
+100%{transform:translateY(-120vh);}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="s1">
+<h2>Hey vyshuu... I made something special ❤️</h2>
+<button onclick="next(2)">Next ❤️</button>
+</div>
+
+<div id="s2" style="display:none">
+<h2>I made something special for you ✨</h2>
+<button onclick="next(3)">Next</button>
+</div>
+
+<div id="s3" style="display:none">
+<h2>Do you wanna see it? 😊</h2>
+<button onclick="next(4)">Yes!</button>
+</div>
+
+<div id="s4" style="display:none">
+<h2>Turn on the lights 💡</h2>
+<button onclick="lights()">Lights On</button>
+</div>
+
+<div id="s5" style="display:none">
+<button onclick="playMusic()">Play Music 🎶</button>
+</div>
+
+<div id="s6" style="display:none">
+<button onclick="showCake()">Cut the Cake 🎂</button>
+</div>
+
+<div id="s7" style="display:none">
+
+<img src="https://drive.google.com/uc?export=view&id=1KCYGMCCYAKVWulbTE6iYOmZCrKz37HLx">
+<img src="https://drive.google.com/uc?export=view&id=11IOTUj8SRNb_n4daE6Qo9DMeKWrvDBjX">
+<img src="https://drive.google.com/uc?export=view&id=10Ge4wCDnXfi0ZGG9b4KtLkyhZ4QHe47L">
+
+<p>
+💖 Dear vyshu 💖 <br><br>
+
+Today is a very special day because someone truly amazing was born. 🎂✨
+<br><br>
+
+I hope this birthday brings you lots of happiness,
+beautiful memories and all the things that make you smile.
+<br><br>
+
+You deserve all the good things in life and I hope
+this year becomes one of the best chapters of your story.
+<br><br>
+
+May your dreams slowly turn into reality and every step
+you take bring you closer to the beautiful future you deserve.
+<br><br>
+
+Keep smiling, keep shining and never stop being
+the wonderful person you are.
+<br><br>
+
+Happy Birthday vyshuu 🎉
+I hope today becomes one of your happiest days 💗
+<br><br>
+
+And if you have anger on me im really sorry if there is some mistake by my side 
+And once again many more happy returns of the day vyshu 🎂🎂
+</p>
+
+<p>
+💗 From Noman <br>
+Forever your good friend and endless smiles ✨
+</p>
+
+</div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+</div>
+
+<script>
+
+function next(n){
+for(let i=1;i<=7;i++){
+let el=document.getElementById("s"+i);
+if(el) el.style.display="none";
+}
+document.getElementById("s"+n).style.display="block";
+}
+
+function lights(){
+document.body.classList.add("pink");
+next(5);
+}
+
+function playMusic(){
+document.getElementById("music").play();
+next(6);
+}
+
+function showCake(){
+next(7);
+balloons();
+}
+
+function balloons(){
+setInterval(()=>{
+let b=document.createElement("div");
+b.className="balloon";
+b.innerHTML="🎈";
+b.style.left=Math.random()*100+"vw";
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),6000);
+},500);
+}
+
+</script>
+
+</body>
+</html>
